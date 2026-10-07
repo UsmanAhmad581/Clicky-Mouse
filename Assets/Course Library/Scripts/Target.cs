@@ -8,7 +8,7 @@ public class Target : MonoBehaviour
     public Rigidbody targetRb;
     private float minSpeed = 12;
     private float maxSpeed = 16f;
-    private float ySpawnPos = -2f;
+    private float ySpawnPos = -5f;
     private float xRange = 4f;
     private float maxTorque = 10f;
     
