@@ -1,24 +1,46 @@
 using UnityEngine;
 using System.Collections;
 using NUnit.Framework.Internal;
+using UnityEngine.InputSystem;
 
 public class Target : MonoBehaviour
 {   
     public Rigidbody targetRb;
-    public float randomizedSpeed;
+    private float minSpeed = 12;
+    private float maxSpeed = 16f;
+    private float ySpawnPos = -2f;
+    private float xRange = 4f;
+    private float maxTorque = 10f;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         targetRb = GetComponent<Rigidbody>();
-        randomizedSpeed = Random.Range(15,16);
-        targetRb.AddForce(Vector3.up * randomizedSpeed, ForceMode.Impulse);
+        targetRb.AddForce(RandomForce(), ForceMode.Impulse);
+        targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
+        transform.position = RandomSpawnPos();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Debug.Log("Mouse Clicked");
+        }
+    }
+    
+    Vector3 RandomSpawnPos()
+    {
+        return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
+    }
+    Vector3 RandomForce()
+    {
+        return Vector3.up * Random.Range(minSpeed, maxSpeed);
+    }
+    float RandomTorque()
+    {
+        return Random.Range(-maxTorque, maxTorque);
     }
 }
