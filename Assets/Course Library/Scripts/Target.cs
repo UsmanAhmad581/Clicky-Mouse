@@ -29,9 +29,11 @@ public class Target : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if(Mouse.current.leftButton.wasPressedThisFrame)
+    {   
+        if(gameManager.isGameActive)
         {
+           if(Mouse.current.leftButton.wasPressedThisFrame)
+            {
             Debug.Log("Mouse Clicked");
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red, 1f);
@@ -43,6 +45,7 @@ public class Target : MonoBehaviour
                     Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
                     gameManager.UpdateScore(pointValue);
                 }
+            }
             }
         }
     }
@@ -64,6 +67,10 @@ public class Target : MonoBehaviour
         if(other.CompareTag("DestroyZone"))
         {
             Destroy(gameObject);
+        }
+        if(!gameObject.CompareTag("Bad"))
+        {
+            gameManager.GameOver();
         }
         
     }
