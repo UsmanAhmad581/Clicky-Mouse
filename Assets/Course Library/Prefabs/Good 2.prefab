@@ -154,4 +154,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
   targetRb: {fileID: 6814254736060532452}
-  targetPrefabs: []
+  pointValue: 1
+  explosionParticle: {fileID: 7535607469619513247, guid: ac10190cf200c4f7e881ca8e41d3d760, type: 3}
