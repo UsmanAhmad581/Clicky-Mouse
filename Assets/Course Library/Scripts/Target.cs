@@ -67,6 +67,11 @@ public class Target : MonoBehaviour
         if(other.CompareTag("DestroyZone"))
         {
             Destroy(gameObject);
+            if(!gameObject.CompareTag("Bad"))
+            {
+                gameManager.lives--;
+                gameManager.LivesText.text = "Lives: " + gameManager.lives;
+            }
         }
         if(!gameObject.CompareTag("Bad"))
         {
