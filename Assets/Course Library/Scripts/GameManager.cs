@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI LivesText;
+    public TextMeshProUGUI VolumeText;
     public int lives;
+    public float volume = 1.0f;
     
 
     public bool isGameActive;
