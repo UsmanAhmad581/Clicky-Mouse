@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TargetX : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class TargetX : MonoBehaviour
     public int pointValue;
     public GameObject explosionFx;
 
-    public float timeOnScreen = 1.0f;
+    public float timeOnScreen = 1.5f;
 
     private float minValueX = -3.75f; // the x value of the center of the left-most square
     private float minValueY = -3.75f; // the y value of the center of the bottom-most square
@@ -22,23 +23,31 @@ public class TargetX : MonoBehaviour
         gameManagerX = GameObject.Find("Game Manager").GetComponent<GameManagerX>();
 
         transform.position = RandomSpawnPosition(); 
-        Ray ray = new Ray(transform.position, Vector3.forward);
-        Debug.DrawRay(ray.origin, ray.direction * 5, Color.red, 1.0f);
         StartCoroutine(RemoveObjectRoutine()); // begin timer before target leaves screen
 
     }
 
     // When target is clicked, destroy it, update score, and generate explosion
-    private void OnMouseEnter()
-    {
-        if (gameManagerX.isGameActive)
+    void Update() {
+        if(gameManagerX.isGameActive)
         {
-            Destroy(gameObject);
-            gameManagerX.UpdateScore(pointValue);
-            Explode();
+            if(Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+                if(Physics.Raycast(ray, out RaycastHit hit))
+                {
+                    if(hit.transform == transform)
+                    {   
+                        Destroy(gameObject);
+                        gameManagerX.UpdateScore(pointValue);
+                        Explode();
+                    }
+                }
+            }
         }
-               
     }
+   
 
     // Generate a random spawn position based on a random index from 0 to 3
     Vector3 RandomSpawnPosition()
