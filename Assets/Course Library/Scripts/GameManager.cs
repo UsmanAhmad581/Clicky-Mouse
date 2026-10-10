@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI VolumeText;
     public Slider VolumeSlider;
     public AudioSource audioSource; 
+    public GameObject pauseScreen;
     
     public int lives;
     
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         audioSource.volume = VolumeSlider.value;
+        PauseGame();
     }
 
     // Update is called once per frame
@@ -43,7 +45,23 @@ public class GameManager : MonoBehaviour
             Instantiate(targets[index]);
         }
     }
-
+    void PauseGame()
+    {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            if(Time.timeScale == 1)
+            {
+                Time.timeScale = 0;
+                pauseScreen.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                pauseScreen.SetActive(false);
+            }
+        }
+    }
+  
     public void UpdateScore(int scoreToAdd)
     {
         score += scoreToAdd;
