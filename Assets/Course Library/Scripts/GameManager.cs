@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {   
     public List<GameObject> targets;
@@ -11,8 +12,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI LivesText;
     public TextMeshProUGUI VolumeText;
+    public Slider VolumeSlider;
+    public AudioSource audioSource; 
+    
     public int lives;
-    public float volume = 1.0f;
     
 
     public bool isGameActive;
@@ -24,6 +27,10 @@ public class GameManager : MonoBehaviour
     void Start()
     {   
         LivesText.text = "Lives: " + lives;
+    }
+    void Update()
+    {
+        audioSource.volume = VolumeSlider.value;
     }
 
     // Update is called once per frame
