@@ -4,17 +4,21 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class GameManagerX : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI timeText;
     public GameObject titleScreen;
     public Button restartButton; 
 
     public List<GameObject> targetPrefabs;
 
     private int score;
+    private int timeRemaining = 60;
+
     private float spawnRate = 1.5f;
     public bool isGameActive;
 
@@ -31,8 +35,21 @@ public class GameManagerX : MonoBehaviour
         score = 0;
         UpdateScore(0);
         titleScreen.SetActive(false);
+        InvokeRepeating("Timer", 1.0f, 1.0f);
     }
-
+  
+    void Timer()
+    {
+        if (timeRemaining > 0 && isGameActive)
+        {
+            timeRemaining--;
+            timeText.text = "Time: " + timeRemaining;
+        }
+        else
+        {
+            GameOver();
+        }
+    }
     // While game is active spawn a random target
     IEnumerator SpawnTarget()
     {
