@@ -22,6 +22,8 @@ public class TargetX : MonoBehaviour
         gameManagerX = GameObject.Find("Game Manager").GetComponent<GameManagerX>();
 
         transform.position = RandomSpawnPosition(); 
+        Ray ray = new Ray(transform.position, Vector3.forward);
+        Debug.DrawRay(ray.origin, ray.direction * 5, Color.red, 1.0f);
         StartCoroutine(RemoveObjectRoutine()); // begin timer before target leaves screen
 
     }
