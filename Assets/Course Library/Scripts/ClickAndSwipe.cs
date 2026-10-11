@@ -55,4 +55,11 @@ public class ClickAndSwipe : MonoBehaviour
         trail.enabled = swiping;
         boxCollider.enabled = swiping;
     }
+    void OnCollisionEnter(Collision collision)
+    {
+      if(collision.gameObject.GetComponent<Target>())
+      {
+        collision.gameObject.GetComponent<Target>().DestroyTarget();
+      }
+    }
 }

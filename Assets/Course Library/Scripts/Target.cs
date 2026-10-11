@@ -79,6 +79,15 @@ public class Target : MonoBehaviour
         }
         
     }
+    public void DestroyTarget()
+    {
+      if(gameManager.isGameActive)
+      {
+        Destroy(gameObject);
+        Explode();
+        gameManager.UpdateScore(pointValue);
+      }
+    }
     void Explode()
     {
         Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
